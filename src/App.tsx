@@ -1,13 +1,17 @@
-import ProductList from "./components/ProductList"
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import ProductList from './components/ProductList';
+import ProductDetail from './components/ProductDetail';
 
-function App() {
-
+const App: React.FC = () => {
   return (
-    <>
-    <div>Hello!</div>
-    <ProductList />
-    </>
-  )
-}
+    <Router>
+      <Routes>
+        <Route path="/" element={<ProductList />} />
+        <Route path="/product/:productId" element={<ProductDetail />} />
+      </Routes>
+    </Router>
+  );
+};
 
-export default App
+export default App;
