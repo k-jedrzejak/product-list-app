@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // productSlice.ts
 
 import { createSlice, PayloadAction, Dispatch } from '@reduxjs/toolkit';
@@ -22,20 +23,22 @@ const productSlice = createSlice({
   initialState,
   reducers: {
     selectProduct(state, action: PayloadAction<string>) {
-      state.selectedProduct = state.products.find(product => product.name === action.payload) || null;
+      state.selectedProduct = state.products.find(product => product.id === action.payload) || null;
     },
-    updateProduct(state, action: PayloadAction<Product>) {
-      const index = state.products.findIndex(product => product.name === action.payload.name);
+    updateProductInState(state, action: PayloadAction<Product>) {
+      const index = state.products.findIndex(product => product.id === action.payload.id);
       if (index !== -1) {
-        state.products = [
-          ...state.products.slice(0, index),
-          action.payload,
-          ...state.products.slice(index + 1)
-        ];
+        state.products[index] = action.payload;
       }
-    },    
+      state.selectedProduct = action.payload;
+    },
     setProducts(state, action: PayloadAction<Product[]>) {
       state.products = action.payload;
+      state.loading = false;
+      state.error = null;
+    },
+    setProduct(state, action: PayloadAction<Product>) {
+      state.selectedProduct = action.payload;
       state.loading = false;
       state.error = null;
     },
@@ -49,7 +52,7 @@ const productSlice = createSlice({
   },
 });
 
-export const { selectProduct, updateProduct, setProducts, setLoading, setError } = productSlice.actions;
+export const { selectProduct, updateProductInState, setProducts, setProduct, setLoading, setError } = productSlice.actions;
 
 export const fetchProducts = (url: string) => async (dispatch: Dispatch) => {
   dispatch(setLoading(true));
@@ -59,11 +62,44 @@ export const fetchProducts = (url: string) => async (dispatch: Dispatch) => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const data = await response.json();
-    console.log("data",data);
     dispatch(setProducts(data));
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     dispatch(setError(error.message || 'Failed to fetch products'));
+  }
+};
+
+export const fetchProduct = (url: string, productId: string) => async (dispatch: Dispatch) => {
+  dispatch(setLoading(true));
+  try {
+    const response = await fetch(`${url}/${productId}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    dispatch(setProduct(data));
+  } catch (error: any) {
+    dispatch(setError(error.message || 'Failed to fetch product'));
+  }
+};
+
+export const updateProduct = (url: string, product: Product) => async (dispatch: Dispatch) => {
+  dispatch(setLoading(true));
+  try {
+    const response = await fetch(`${url}/${product.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(product),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    dispatch(updateProductInState(data));
+    dispatch(setLoading(false));
+  } catch (error: any) {
+    dispatch(setError(error.message || 'Failed to update product'));
   }
 };
 
