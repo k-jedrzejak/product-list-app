@@ -25,7 +25,7 @@ const ProductList = () => {
         <ul className="list-group">
           {products.map((product) => (
             <li key={product.id} className="list-group-item">
-              <Link to={`/product/${product.id}`} className="text-decoration-none">
+              <Link to={`/products/${product.id}`} className="text-decoration-none">
                 {product.name}
               </Link>
             </li>
