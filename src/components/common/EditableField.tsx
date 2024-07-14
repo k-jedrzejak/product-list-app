@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import InputField from './InputField';
-import EditButton from './EditButton';
-import ActionButtons from './ActionButtons';
+import React, { useState } from "react";
+import InputField from "./InputField";
+import EditButton from "./EditButton";
+import ActionButtons from "./ActionButtons";
 
 interface EditableFieldProps {
   value: string;
@@ -10,11 +10,10 @@ interface EditableFieldProps {
   onSave: () => void;
   onCancel: () => void;
   isSaving: boolean;
-  type?: 'text' | 'textarea';
-  secondaryValue?: string; 
-  secondaryOnChange?: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void; 
+  type?: "text" | "textarea";
+  secondaryValue?: string;
+  secondaryOnChange?: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
-
 
 const EditableField = ({
   value,
@@ -23,7 +22,7 @@ const EditableField = ({
   onSave,
   onCancel,
   isSaving,
-  type = 'text',
+  type = "text",
   secondaryValue,
   secondaryOnChange,
 }: EditableFieldProps) => {
@@ -43,23 +42,42 @@ const EditableField = ({
     setIsEditing(false);
   };
 
-  if (isEditing) {
-    return (
-      <div>
-        <InputField type={type} value={value} name={name} onChange={onChange} />
-        {secondaryValue !== undefined && secondaryOnChange && (
-          <InputField type={type} value={secondaryValue} name={`${name}-secondary`} onChange={secondaryOnChange} />
-        )}
-        <ActionButtons onSaveClick={handleSaveClick} onCancelClick={handleCancelClick} isSaving={isSaving} />
-      </div>
-    );
-  }
-
   return (
-    <div className="d-flex align-items-baseline justify-content-between">
-      {secondaryValue !== undefined ? null : <div><span>{name}: </span>{value}</div>}
-      <EditButton onEditClick={handleEditClick} name={name} />
-    </div>
+    <>
+      {isEditing ? (
+        <div>
+          <InputField
+            type={type}
+            value={value}
+            name={name}
+            onChange={onChange}
+          />
+          {secondaryValue !== undefined && secondaryOnChange && (
+            <InputField
+              type={type}
+              value={secondaryValue}
+              name={`${name}-secondary`}
+              onChange={secondaryOnChange}
+            />
+          )}
+          <ActionButtons
+            onSaveClick={handleSaveClick}
+            onCancelClick={handleCancelClick}
+            isSaving={isSaving}
+          />
+        </div>
+      ) : (
+        <div className="d-flex align-items-baseline justify-content-between">
+          {secondaryValue !== undefined ? null : (
+            <div>
+              <span>{name}: </span>
+              {value}
+            </div>
+          )}
+          <EditButton onEditClick={handleEditClick} name={name} />
+        </div>
+      )}
+    </>
   );
 };
 
