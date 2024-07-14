@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import InputField from "./InputField";
-import EditButton from "./EditButton";
-import ActionButtons from "./ActionButtons";
+import Button from "./Button";
 
 interface EditableFieldProps {
   value: string;
@@ -58,10 +57,13 @@ const EditableField = ({
               onChange={secondaryOnChange}
             />
           )}
-          <ActionButtons
-            onSaveClick={handleSaveClick}
-            onCancelClick={handleCancelClick}
-          />
+          <Button className="btn-primary mt-2" onClick={handleSaveClick}>
+            Save
+          </Button>
+          <Button
+            className="btn-secondary mt-2 ms-2"onClick={handleCancelClick}>
+            Cancel
+          </Button>
         </div>
       ) : (
         <div className="d-flex align-items-baseline justify-content-between">
@@ -71,7 +73,9 @@ const EditableField = ({
               {value}
             </div>
           )}
-          <EditButton onEditClick={handleEditClick} name={name} />
+          <Button onClick={handleEditClick} className={"btn-link"}>
+            {name === "image" ? `Edit ${name}` : "Edit"}
+          </Button>
         </div>
       )}
     </>
