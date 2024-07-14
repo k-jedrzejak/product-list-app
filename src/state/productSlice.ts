@@ -83,7 +83,6 @@ export const fetchProduct = (url: string, productId: string) => async (dispatch:
 };
 
 export const updateProduct = (url: string, product: Product) => async (dispatch: Dispatch) => {
-  dispatch(setLoading(true));
   try {
     const response = await fetch(`${url}/${product.id}`, {
       method: 'PUT',
@@ -97,7 +96,6 @@ export const updateProduct = (url: string, product: Product) => async (dispatch:
     }
     const data = await response.json();
     dispatch(updateProductInState(data));
-    dispatch(setLoading(false));
   } catch (error: any) {
     dispatch(setError(error.message || 'Failed to update product'));
   }
