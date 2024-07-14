@@ -1,30 +1,71 @@
-# React + TypeScript + Vite
+# Overview
+The application presents a list of products and when clicked, we go to the product page where we can edit the product. No features for adding or removing product or product properties are added
+Application built with React for the frontend and Express for the backend. Jest and React Testing library are used to testing.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Setup
+1. Clone the Repository
+2. Install Dependencies
+Navigate to both the project root and the server directory to install dependencies.
 
-Currently, two official plugins are available:
+- In the project root:
+```
+npm install
+# or
+yarn install
+```
+- In the server directory:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```
+cd server
+npm install
+# or
+yarn install
+cd ..
+```
+# Development
+1. Run the Frontend
+Start the frontend development server using Vite.
+```
+npm run dev
+# or
+yarn dev
+```
+2. Run the Backend
+Start the backend server.
+```
+cd server
+node server.mjs
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+The application should now be running on:
+
+Frontend: http://http://127.0.0.1:5173
+Backend: http://localhost:3000/api/products
+
+# Production
+1. Build the Frontend
+Build the frontend for production.
+```
+npm run build
+# or
+yarn build
+```
+This will generate static files in the dist directory.
+
+2. Start the Backend Server
+Run the server to serve the built frontend files and provide the API.
+```
+cd server
+node server.mjs
+```
+The application should now be running on:
+
+Frontend: http://localhost:3000
+Backend: http://localhost:3000/api/products
+
+# Running tests
+
+1. To run tests, use
+```
+npm test
+```
