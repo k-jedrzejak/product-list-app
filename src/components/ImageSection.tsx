@@ -11,7 +11,7 @@ interface ImageSectionProps {
   handleImageError: (index: number) => void;
 }
 
-const ImageSection: React.FC<ImageSectionProps> = ({
+const ImageSection = ({
   images,
   imageErrors,
   savingState,
