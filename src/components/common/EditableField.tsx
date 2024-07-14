@@ -56,8 +56,8 @@ const EditableField = ({
   }
 
   return (
-    <div className="d-flex align-items-center justify-content-between">
-      {secondaryValue !== undefined ? null : <div>{value}</div>}
+    <div className="d-flex align-items-baseline justify-content-between">
+      {secondaryValue !== undefined ? null : <div><span>{name}: </span>{value}</div>}
       <EditButton onEditClick={handleEditClick} name={name} />
     </div>
   );

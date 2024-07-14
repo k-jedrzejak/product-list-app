@@ -6,11 +6,11 @@ interface EditButtonProps {
 const EditButton = ({ onEditClick, name }: EditButtonProps) => {
   return (
     <button
-      className="btn btn-link ms-2"
+      className="btn btn-link btn-sm"
       onClick={onEditClick}
     >
-      Edit {name}
-    </button>
+      {name === "image" ? `Edit ${name}` : "Edit"}
+  </button>
   );
 };
 
