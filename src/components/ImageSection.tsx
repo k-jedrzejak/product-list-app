@@ -14,7 +14,6 @@ interface ImageSectionProps {
 const ImageSection = ({
   images,
   imageErrors,
-  savingState,
   handleInputChange,
   handleSaveImageField,
   handleImageError,
@@ -40,7 +39,6 @@ const ImageSection = ({
             secondaryOnChange={(e) => handleInputChange({ ...e, target: { ...e.target, name: `name-${index}` } })}
             onSave={() => handleSaveImageField(index)}
             onCancel={() => {}}
-            isSaving={savingState[`image-${index}`]}
             name="image"
             type="text"
           />

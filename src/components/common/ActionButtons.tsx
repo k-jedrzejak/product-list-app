@@ -1,16 +1,14 @@
 interface ActionButtonsProps {
   onSaveClick: () => void;
   onCancelClick: () => void;
-  isSaving: boolean;
 }
 
-const ActionButtons = ({ onSaveClick, onCancelClick, isSaving }: ActionButtonsProps) => {
+const ActionButtons = ({ onSaveClick, onCancelClick }: ActionButtonsProps) => {
   return (
     <>
       <button
         className="btn btn-primary mt-2"
         onClick={onSaveClick}
-        disabled={isSaving}
       >
         Save
       </button>

@@ -9,7 +9,6 @@ interface EditableFieldProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   onSave: () => void;
   onCancel: () => void;
-  isSaving: boolean;
   type?: "text" | "textarea";
   secondaryValue?: string;
   secondaryOnChange?: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
@@ -21,7 +20,6 @@ const EditableField = ({
   onChange,
   onSave,
   onCancel,
-  isSaving,
   type = "text",
   secondaryValue,
   secondaryOnChange,
@@ -63,7 +61,6 @@ const EditableField = ({
           <ActionButtons
             onSaveClick={handleSaveClick}
             onCancelClick={handleCancelClick}
-            isSaving={isSaving}
           />
         </div>
       ) : (

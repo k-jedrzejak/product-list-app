@@ -43,7 +43,6 @@ const ProductDetail = () => {
               {Object.keys(editableProduct).map((key) => {
                 if (key === 'images') return null;
                 const value = editableProduct[key as keyof typeof editableProduct] ?? '';
-                const isSaving = savingState[key as keyof typeof savingState] as boolean;
                 return (
                   <div key={key} className={`border-bottom pb-4 ${key === 'name' ? 'h2' : ''}`}>
                     <EditableField
@@ -51,7 +50,6 @@ const ProductDetail = () => {
                       onChange={handleInputChange}
                       onSave={() => handleSaveField(key as keyof typeof editableProduct)}
                       onCancel={() => {}}
-                      isSaving={isSaving}
                       type={key === 'description' ? 'textarea' : 'text'}
                       name={key}
                     />
