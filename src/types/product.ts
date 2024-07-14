@@ -1,9 +1,9 @@
-export interface Image {
+export type Image  ={
   url: string;
   name: string;
 }
 
-export interface Product {
+export type Product = {
   id?: string;
   name: string;
   number: string;
