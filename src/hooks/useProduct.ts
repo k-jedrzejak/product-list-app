@@ -15,9 +15,16 @@ export const useProduct = () => {
   const [imageErrors, setImageErrors] = useState<string[]>([]);
 
   useEffect(() => {
+    const controller = new AbortController();
+    const { signal } = controller;
+
     if (productId && (!selectedProduct || selectedProduct.id !== productId)) {
-      dispatch(fetchProduct(API_BASE_URL, productId));
+      dispatch(fetchProduct(API_BASE_URL, productId, signal));
     }
+
+    return () => {
+      controller.abort();
+    };
   }, [dispatch, productId, selectedProduct]);
 
   useEffect(() => {

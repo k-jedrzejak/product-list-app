@@ -54,32 +54,35 @@ const productSlice = createSlice({
 
 export const { selectProduct, updateProductInState, setProducts, setProduct, setLoading, setError } = productSlice.actions;
 
-export const fetchProducts = (url: string) => async (dispatch: Dispatch) => {
+export const fetchProducts = (url: string, signal: AbortSignal) => async (dispatch: Dispatch) => {
   dispatch(setLoading(true));
   try {
-    const response = await fetch(url); 
+    const response = await fetch(url, { signal }); 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const data = await response.json();
     dispatch(setProducts(data));
   } catch (error: any) {
-    dispatch(setError(error.message || 'Failed to fetch products'));
+    if (error.name !== 'AbortError') {
+      dispatch(setError(error.message || 'Failed to fetch products'));
+    }
   }
 };
 
-export const fetchProduct = (url: string, productId: string) => async (dispatch: Dispatch) => {
+export const fetchProduct = (url: string, productId: string, signal: AbortSignal) => async (dispatch: Dispatch) => {
   dispatch(setLoading(true));
   try {
-    const response = await fetch(`${url}/${productId}`);
+    const response = await fetch(`${url}/${productId}`, {signal});
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const data = await response.json();
     dispatch(setProduct(data));
   } catch (error: any) {
-    dispatch(setError(error.message || 'Failed to fetch product'));
-  }
+    if (error.name !== 'AbortError') {
+      dispatch(setError(error.message || 'Failed to fetch product'));
+    }  }
 };
 
 export const updateProduct = (url: string, product: Product) => async (dispatch: Dispatch) => {

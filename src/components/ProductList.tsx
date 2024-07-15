@@ -12,7 +12,13 @@ const ProductList = () => {
   const { products, loading, error } = useAppSelector((state: RootState) => state.products);
 
   useEffect(() => {
-    dispatch(fetchProducts(API_BASE_URL));
+    const controller = new AbortController();
+    const { signal } = controller;
+    dispatch(fetchProducts(API_BASE_URL, signal));
+
+    return () => {
+      controller.abort();
+    };
   }, [dispatch]);
 
   return (

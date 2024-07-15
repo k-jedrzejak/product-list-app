@@ -34,6 +34,7 @@ describe('useProduct', () => {
     number: '123456',
     images: [{ url: 'image1.jpg', name: 'Image 1' }],
   };
+  const signal = new AbortController().signal;
 
   beforeEach(() => {
     (useParams as jest.Mock).mockReturnValue({ productId });
@@ -57,7 +58,7 @@ describe('useProduct', () => {
     renderHook(() => useProduct());
 
     await waitFor(() => {
-      expect(dispatchMock).toHaveBeenCalledWith(fetchProduct(API_BASE_URL, productId));
+      expect(dispatchMock).toHaveBeenCalledWith(fetchProduct(API_BASE_URL, productId, signal));
     }, { timeout: 2000 });
   });
 
