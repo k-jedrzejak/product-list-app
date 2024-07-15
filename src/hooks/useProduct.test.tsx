@@ -1,6 +1,5 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 import { waitFor } from '@testing-library/react';
-
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../state/hooks';
 import { fetchProduct, updateProduct } from '../state/productSlice';
@@ -40,7 +39,7 @@ describe('useProduct', () => {
     (useParams as jest.Mock).mockReturnValue({ productId });
     (useAppDispatch as unknown as jest.Mock).mockReturnValue(dispatchMock);
     (useAppSelector as unknown as jest.Mock).mockReturnValue({
-      selectedProduct: null, 
+      selectedProduct: null,
       loading: false,
       error: null,
     });
@@ -101,6 +100,13 @@ describe('useProduct', () => {
   it('should handle saving field correctly', async () => {
     (updateProduct as jest.Mock).mockReturnValue({ type: 'updateProduct' });
 
+    // Simulate state change by mocking useAppSelector to return selectedProduct
+    (useAppSelector as unknown as jest.Mock).mockReturnValueOnce({
+      selectedProduct,
+      loading: false,
+      error: null,
+    });
+
     const { result } = renderHook(() => useProduct());
 
     await act(async () => {
@@ -109,7 +115,7 @@ describe('useProduct', () => {
 
     expect(dispatchMock).toHaveBeenCalledWith(updateProduct(API_BASE_URL, {
       ...selectedProduct,
-      name: selectedProduct.name,
+      name: 'New Product Name', 
     }));
   });
 
