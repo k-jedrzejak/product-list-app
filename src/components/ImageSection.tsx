@@ -5,7 +5,6 @@ import { Image } from '../types/product';
 interface ImageSectionProps {
   images: Image[];
   imageErrors: string[];
-  savingState: { [key: string]: boolean };
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleSaveImageField: (index: number) => void;
   handleImageError: (index: number) => void;

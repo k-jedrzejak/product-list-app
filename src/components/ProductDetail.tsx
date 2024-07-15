@@ -5,7 +5,6 @@ import EditableField from './common/EditableField';
 const ProductDetail = () => {
   const {
     editableProduct,
-    savingState,
     imageErrors,
     loading,
     error,
@@ -30,7 +29,6 @@ const ProductDetail = () => {
                 <ImageSection
                   images={editableProduct.images}
                   imageErrors={imageErrors}
-                  savingState={savingState}
                   handleInputChange={handleInputChange}
                   handleSaveImageField={handleSaveImageField}
                   handleImageError={handleImageError}

@@ -1,26 +1,9 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../state/hooks";
-import { fetchProducts } from "../state/productSlice";
-import { RootState } from "../state/store";
-import { API_BASE_URL } from "../constants/constants";
 import React from "react";
+import useProductData from "../hooks/useFetchData";
 
 const ProductList = () => {
-  const dispatch = useAppDispatch();
-  const { products, loading, error } = useAppSelector(
-    (state: RootState) => state.products
-  );
-
-  useEffect(() => {
-    const controller = new AbortController();
-    const { signal } = controller;
-    dispatch(fetchProducts(API_BASE_URL, signal));
-
-    return () => {
-      controller.abort();
-    };
-  }, [dispatch]);
+  const { products, loading, error } = useProductData();
 
   return (
     <>
