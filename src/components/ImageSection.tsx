@@ -1,22 +1,24 @@
 import React from 'react';
 import EditableField from './common/EditableField';
 import { Image } from '../types/product';
+import { useProduct } from '../hooks/useProduct';
 
 interface ImageSectionProps {
   images: Image[];
-  imageErrors: string[];
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  handleSaveImageField: () => void;
-  handleImageError: (index: number) => void;
+  handleSaveField: (field: string) => void;
 }
 
 const ImageSection = ({
   images,
-  imageErrors,
   handleInputChange,
-  handleSaveImageField,
-  handleImageError,
+  handleSaveField,
 }: ImageSectionProps) => {
+  const {
+    imageErrors,
+    handleImageError,
+  } = useProduct(); 
+
   return (
     <div>
       {images.map((image, index) => (
@@ -36,7 +38,7 @@ const ImageSection = ({
             secondaryValue={image.name}
             onChange={(e) => handleInputChange({ ...e, target: { ...e.target, name: `url-${index}` } })}
             secondaryOnChange={(e) => handleInputChange({ ...e, target: { ...e.target, name: `name-${index}` } })}
-            onSave={() => handleSaveImageField()}
+            onSave={() => handleSaveField('image')}
             onCancel={() => {}}
             name="image"
             type="text"

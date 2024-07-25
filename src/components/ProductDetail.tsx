@@ -5,13 +5,10 @@ import EditableField from './common/EditableField';
 const ProductDetail = () => {
   const {
     editableProduct,
-    imageErrors,
     loading,
     error,
     handleInputChange,
     handleSaveField,
-    handleSaveImageField,
-    handleImageError,
   } = useProduct();
 
 
@@ -28,10 +25,8 @@ const ProductDetail = () => {
               {editableProduct.images && editableProduct.images.length > 0 ? (
                 <ImageSection
                   images={editableProduct.images}
-                  imageErrors={imageErrors}
                   handleInputChange={handleInputChange}
-                  handleSaveImageField={handleSaveImageField}
-                  handleImageError={handleImageError}
+                  handleSaveField={handleSaveField}
                 />
               ) : (
                 <div>No images</div>

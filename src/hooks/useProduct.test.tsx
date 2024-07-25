@@ -119,20 +119,6 @@ describe('useProduct', () => {
     }));
   });
 
-  it('should handle saving image field correctly', async () => {
-    (updateProduct as jest.Mock).mockReturnValue({ type: 'updateProduct' });
-
-    const { result } = renderHook(() => useProduct());
-
-    await act(async () => {
-      await result.current.handleSaveImageField();
-    });
-
-    expect(dispatchMock).toHaveBeenCalledWith(updateProduct(API_BASE_URL, {
-      ...selectedProduct,
-      images: selectedProduct.images,
-    }));
-  });
 
   it('should handle image error correctly', async () => {
     const { result } = renderHook(() => useProduct());
