@@ -38,8 +38,8 @@ export const useProduct = () => {
     handleSave(field);
   };
 
-  const handleSaveImageField = (index: number) => {
-    handleSave('image', index);
+  const handleSaveImageField = () => {
+    handleSave('image');
   };
 
   const handleImageError = useCallback((index: number) => {

@@ -125,7 +125,7 @@ describe('useProduct', () => {
     const { result } = renderHook(() => useProduct());
 
     await act(async () => {
-      await result.current.handleSaveImageField(0);
+      await result.current.handleSaveImageField();
     });
 
     expect(dispatchMock).toHaveBeenCalledWith(updateProduct(API_BASE_URL, {

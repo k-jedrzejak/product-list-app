@@ -6,7 +6,7 @@ interface ImageSectionProps {
   images: Image[];
   imageErrors: string[];
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  handleSaveImageField: (index: number) => void;
+  handleSaveImageField: () => void;
   handleImageError: (index: number) => void;
 }
 
@@ -36,7 +36,7 @@ const ImageSection = ({
             secondaryValue={image.name}
             onChange={(e) => handleInputChange({ ...e, target: { ...e.target, name: `url-${index}` } })}
             secondaryOnChange={(e) => handleInputChange({ ...e, target: { ...e.target, name: `name-${index}` } })}
-            onSave={() => handleSaveImageField(index)}
+            onSave={() => handleSaveImageField()}
             onCancel={() => {}}
             name="image"
             type="text"
