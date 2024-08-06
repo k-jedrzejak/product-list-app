@@ -19,18 +19,16 @@ const useProductData = (productId?: string) => {
 
     if (productId) {
       if (!selectedProduct || selectedProduct.id !== productId) {
-        dispatch(fetchProduct(API_BASE_URL, productId, signal));
-        dispatch(fetchProduct(API_BASE_URL, productId, signal));
-
+        dispatch(fetchProduct(API_BASE_URL, productId, signal ));
       }
-    } else {
-      dispatch(fetchProducts(API_BASE_URL, signal));
+    } else if (products.length === 0) {
+      dispatch(fetchProducts(API_BASE_URL, signal ));
     }
 
     return () => {
       controller.abort();
     };
-  }, [dispatch, productId, selectedProduct]);
+  }, [dispatch, productId, selectedProduct, products.length]);
 
   return {
     products,

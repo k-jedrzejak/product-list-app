@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import InputField from "./InputField";
+import SingleInputField from "./SingleInputField";
+import DualInputField from "./DualInputField";
+import EditButtons from "./EditButtons";
 import Button from "./Button";
 
 interface EditableFieldProps {
@@ -43,36 +45,31 @@ const EditableField = ({
     <>
       {isEditing ? (
         <div>
-          <InputField
-            type={type}
-            value={value}
-            name={name}
-            onChange={onChange}
-          />
-          {secondaryValue !== undefined && secondaryOnChange && (
-            <InputField
+          {secondaryValue !== undefined && secondaryOnChange ? (
+            <DualInputField
+              value={value}
+              secondaryValue={secondaryValue}
+              name={name}
+              onChange={onChange}
+              secondaryOnChange={secondaryOnChange}
               type={type}
-              value={secondaryValue}
-              name={`${name}-secondary`}
-              onChange={secondaryOnChange}
+            />
+          ) : (
+            <SingleInputField
+              value={value}
+              name={name}
+              onChange={onChange}
+              type={type}
             />
           )}
-          <Button className="btn-primary mt-2" onClick={handleSaveClick}>
-            Save
-          </Button>
-          <Button
-            className="btn-secondary mt-2 ms-2"onClick={handleCancelClick}>
-            Cancel
-          </Button>
+          <EditButtons onSave={handleSaveClick} onCancel={handleCancelClick} />
         </div>
       ) : (
         <div className="d-flex align-items-baseline justify-content-between">
-          {secondaryValue !== undefined ? null : (
-            <div>
-              <span>{name}: </span>
-              {value}
-            </div>
-          )}
+          <div>
+            <span>{name}: </span>
+            {value}
+          </div>
           <Button onClick={handleEditClick} className={"btn-link"}>
             {name === "image" ? `Edit ${name}` : "Edit"}
           </Button>
