@@ -38,10 +38,6 @@ export const useProduct = () => {
     handleSave(field);
   };
 
-  const handleSaveImageField = (index: number) => {
-    handleSave('image', index);
-  };
-
   const handleImageError = useCallback((index: number) => {
     setImageErrors((prev) => ({
       ...prev,
@@ -58,7 +54,7 @@ export const useProduct = () => {
     error,
     handleInputChange,
     handleSaveField,
-    handleSaveImageField,
+    //handleSaveImageField,
     handleImageError,
   };
 };
